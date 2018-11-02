@@ -1,0 +1,77 @@
+<section class="m-video-cell {getClass}" data-index="{index}">
+    <div class="loading-tip u-half-border" r-hide="!loading">
+        <div class="loading-tip__center">
+            <p class="loading-tip__text"></p>
+        </div>
+    </div>
+    <main class="u-content" r-hide="loading">
+        <div class="u-container" r-hide="err1Show || err2Text" on-click={this.containerClick($event)}>
+            {#if !isIosUc}
+            <img src="{videoInfo.coverUrl}" class="u-video-poster" r-hide="videoShow">
+            {/if}
+            <video src="{getSrc}"
+                   {#if needControl}controls{/if}
+                   class="u-video"
+                   preload="metadata"
+                   webkit-playsinline="true"
+                   playsinline="true"
+                   ref="video"
+                   {#if isIosUc}poster="{videoInfo.coverUrl}"{/if}
+                   {#if !isIosUc}r-hide="!videoShow"{/if}>
+            </video>
+            {#if !isIosUc}
+            <div class="f-index-1" r-hide="!index1Show"></div>
+            <div class="f-index-2" r-hide="!index2Show">
+                <div class="u-controls-middle">
+                    <div class="u-controls">
+                        <a href="javascript:;" class="u-start sqfont icon-video-play" r-hide="!startBtnShow"
+                           on-click={this.startBtnClick($event)}></a>
+                        <a href="javascript:;" class="u-pause sqfont icon-video-pause" r-hide="!pauseBtnShow"
+                           on-click={this.pauseBtnClick($event)}></a>
+                        <a href="" class="u-loading" r-hide="!loadingBtnShow"></a>
+                        <a href="javascript:;" class="u-restart sqfont icon-video-replay" r-hide="!replayBtnShow"
+                           on-click={this.startBtnClick($event)}></a>
+                    </div>
+                    <div class="f-text-area">
+                        <div class="u-total-time" r-hide="!middleTotalTimeShow">{middleDurationText}</div>
+                        <div class="u-restart-text" r-hide="!middleRestartTextShow">重新播放</div>
+                    </div>
+                </div>
+                <div class="u-controls-bottom" r-hide="!bottomShow" on-click="{this.bottomClick($event)}">
+                    <span class="u-current-time">{currentTimeText}</span>
+                    <div class="u-progress-bar" ref="progressBar">
+                        <div class="u-progress-click-area" on-click={this.progressAreaClick($event)}></div>
+                        <span class="u-current-progress" style="width: {currentProgressWidth}"></span>
+                        <span class="u-current-dot" style="transform: {currentDotTranslate}"></span>
+                        <span class="u-current-dot u-dot-click-area" style="transform: {currentDotTranslate}" on-touchstart="{this.dotTouchStart($event)}" on-touchmove="{this.dotTouchMove($event)}" on-touchend="{this.dotTouchEnd($event)}"></span>
+                        {#if bufferedShow}
+                        {#list buffered as item}
+                        <span class="u-buffered" style="transform: {bufferedTranslate(item_index)}; width: {bufferedWidth(item_index)}"></span>
+                        {/list}
+                        {/if}
+                    </div>
+                    <span class="u-total-time">{bottomDurationText}</span>
+                    <span class="u-full-screen sqfont icon-video-full-screen" on-click={this.fullScreenClick($event)}></span>
+                </div>
+            </div>
+            {/if}
+            <div class="f-index-3 u-top-info" r-hide="!showWifiInfo">
+                {wifiInfo}
+            </div>
+        </div>
+
+        <div class="u-err-container u-half-border" r-hide="!err1Show && !err2Text">
+            <div r-hide="!err1Show">
+                <div class="u-controls">
+                    <a href="javascript:;" class="u-restart sqfont icon-video-replay" on-click={this.restartBtnClick($event)}></a>
+                </div>
+                <div class="f-text-area">
+                    <div class="u-fail-text">网络异常 点击重新加载</div>
+                </div>
+            </div>
+            <div r-hide="!err2Text" class="u-err2-text">
+                {err2Text}
+            </div>
+        </div>
+    </main>
+</section>

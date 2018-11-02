@@ -1,0 +1,288 @@
+
+.m-video-cell {
+  margin: 20px auto;
+  overflow: hidden;
+
+  &--horizontal {
+
+    .loading-tip,
+    .u-content {
+      padding-bottom: 56.5%;
+    }
+
+    .u-video,
+    .u-video-poster {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &--vertical {
+
+    .loading-tip,
+    .u-content {
+      padding-bottom: 75.4%;
+    }
+
+    .u-video,
+    .u-video-poster {
+      width: auto;
+      height: 100%;
+    }
+  }
+
+  &--fail {
+
+  }
+
+  .u-content {
+    position: relative;
+  }
+
+  .u-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #555;
+    cursor: pointer;
+  }
+
+  .u-video-poster {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .u-video {
+
+  }
+
+  .u-err-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #f8f8f8;
+    text-align: center;
+
+    .u-restart {
+      color: #999;
+    }
+
+    .u-fail-text {
+      font-size: 14px;
+      color: #333;
+    }
+
+    .u-err2-text {
+      font-size: 14px;
+      color: #999;
+    }
+  }
+
+  // 第一层 蒙板层 z-index 20
+  // 第二层 常规操作层 z-index 20-100
+  // 第三层 提示层 z-index 100-200
+  // 第四层 弹出层 z-index 200-1000
+  $f-index-share = {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .f-index-1 {
+    $f-index-share();
+    z-index: 20;
+    background: rgba(0, 0, 0, .3);
+  }
+
+  .f-index-2 {
+    $f-index-share();
+    z-index: 50;
+  }
+
+  .f-index-3 {
+    position: absolute;
+    z-index: 150;
+
+    &.u-top-info {
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 6px 10px;
+      background: rgba(0, 0, 0, .75);
+      border-radius: 50px;
+      font-size: 14px;
+      color: #fff;
+      line-height: 1;
+      white-space: nowrap;
+    }
+  }
+
+  .u-controls-middle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;;
+    transform: translateY(-50%);
+    text-align: center;
+  }
+
+  .u-controls {
+    display: flex;
+    justify-content: center;
+  }
+
+  .u-start,
+  .u-pause,
+  .u-restart {
+    font-size: 40px;
+    color: #fff;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .u-loading {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    cursor: pointer;
+  }
+
+  .u-loading {
+    background-image: url(//haitao.nos.netease.com/c7db771a-76c7-418e-8fce-ac2810ae19f4.gif);
+  }
+
+  .u-loading-bg {
+    position: absolute;
+    z-index: 55;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .4);
+  }
+
+  .u-controls-middle .f-text-area {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5px;
+    line-height: 1;
+  }
+
+  .u-controls-middle .u-total-time {
+    font-size: 14px;
+    color: #fff;
+  }
+
+  .u-restart-text {
+    font-size: 14px;
+    color: #fff;
+  }
+
+  .u-controls-bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    padding: 0 20px;
+    background: rgba(0, 0, 0, .75);
+  }
+
+  .u-current-time {
+    font-size: 14px;
+    color: #fff;
+  }
+
+  $progressBorderRadius = 4px;
+
+  .u-progress-bar {
+    position: relative;
+    flex-grow: 1;
+    height: 4px;
+    margin: 0 17px;
+    background: rgba(255, 255, 255, .5);
+    border-radius: $progressBorderRadius;
+  }
+
+  .u-progress-click-area {
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .u-current-progress {
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #ff0000;
+    border-radius: $progressBorderRadius;
+  }
+
+  .u-current-dot {
+    position: absolute;
+    z-index: 6;
+    top: -5px;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .u-dot-click-area {
+    z-index: 8;
+    top: -12px;
+    left: -7px;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+  }
+
+  .u-buffered {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    height: 100%;
+    background: #fff;
+    border-radius: 4px;
+  }
+
+  .u-controls-bottom .u-total-time {
+    margin-right: 20px;
+    font-size: 14px;
+    color: #fff;
+  }
+
+  .u-full-screen {
+    display: inline-block;
+    font-size: 17px;
+    color: #fff;
+    cursor: pointer;
+  }
+}
